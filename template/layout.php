@@ -52,7 +52,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                 <li><a href="admin.php"><span class="am-icon-home"></span> 首页</a></li>
                 <li class="admin-parent">
                     <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 酒店管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list  admin-sidebar-sub am-collapse  " id="collapse-nav">
+                    <ul class="am-list  admin-sidebar-sub" id="collapse-nav">
                         <li><a href="customer.php"><span class="am-icon-file-o"></span> 客户信息</a></li>
                         <li><a href="checkin.php" class="am-cf"><span class="am-icon-check"></span> 入住登记</a></li>
                         <li><a href="checkout.php"><span class="am-icon-puzzle-piece"></span> 退房结账</a></li>
@@ -65,7 +65,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                         <<<ADMIN
                                   <li class="admin-parent">
                                 <a class="am-cf" data-am-collapse="{target: '#collapse-nav-admin'}"><span class="am-icon-file"></span> 管理员功能 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                                <ul class="am-list admin-sidebar-sub am-collapse" id="collapse-nav-admin">
+                                <ul class="am-list admin-sidebar-sub" id="collapse-nav-admin">
                                     <li><a href="room.php"><span class="am-icon-file-o"></span> 客房管理</a></li>
                                     <li><a href="type.php"><span class="am-icon-file-o"></span> 客房类型</a></li>
                                     <li><a href="staff.php"><span class="am-icon-file-text"></span> 员工管理</a></li>
