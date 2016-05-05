@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             }
 
             try{
-                $result = $result && $mysql->queryNoResult('INSERT INTO t_reserve (`admin_id`,`cust_id`,`room_id`,`check_in_time`,`guarantee_price`,`room_price`,`check_out_time`,`check_in`) VALUES (?,?,?,?,?,?,?,?)',
+                $result = $mysql->queryNoResult('INSERT INTO t_reserve (`admin_id`,`cust_id`,`room_id`,`check_in_time`,`guarantee_price`,`room_price`,`check_out_time`,`check_in`) VALUES (?,?,?,?,?,?,?,?)',
                         $adminId,$custId,$roomId,$checkInTime,$guatanteePrice,$roomPrice,$checkOutTime,0);
 
             } catch (MySQLiQueryException $ex) {
