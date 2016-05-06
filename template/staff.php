@@ -25,21 +25,23 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                 <table class="am-table am-table-bd am-table-striped admin-content-table">
                     <thead>
                     <tr>
-                        <th>ID</th><th>用户名</th><th>姓名</th><th>职位</th><th>工号</th><th>权限</th><th>管理</th>
+                        <th>序号</th><th>用户名</th><th>姓名</th><th>职位</th><th>工号</th><th>权限</th><th>管理</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
+                    $i = 0;
                     foreach ($staffs as $row) {
+                        $i ++;
                         $permission = $row['permission']==1?"管理员":"普工";
                     echo <<<TR
-                        <tr><td>{$row['id']}</td><td>{$row['user']}</td><td>{$row['name']}</td><td>{$row['job']}</td><td>{$row['jobid']}</td> <td>{$permission}</td>
+                        <tr><td>{$i}</td><td>{$row['user']}</td><td>{$row['name']}</td><td>{$row['job']}</td><td>{$row['jobid']}</td> <td>{$permission}</td>
                         <td>
                             <div class="am-dropdown" data-am-dropdown>
                                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
                                 <ul class="am-dropdown-content">
                                     <li><a href="#" onclick="edit('{$row['user']}','{$row['name']}','{$row['job']}','{$row['jobid']}','{$row['permission']}','{$row['id']}')">1. 编辑</a></li>
-                                    <li><a href="staff.php?Action=Del&id={$row['id']}">2. 删除</a></li>
+                                    <li><a href="#" onclick=delOption('staff.php','{$row['id']}')>2. 删除</a></li>
                                 </ul>
                             </div>
                         </td>

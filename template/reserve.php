@@ -25,15 +25,17 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                 <table class="am-table am-table-bd am-table-striped admin-content-table">
                     <thead>
                     <tr>
-                        <th>ID</th><th>房间号</th><th>姓名</th><th>证件</th><th>手机</th><th>类型</th><th>价格</th><th>押金</th><th>入住时间</th><th>退房时间</th><th>操作</th>
+                        <th>序号</th><th>房间号</th><th>姓名</th><th>证件</th><th>手机</th><th>类型</th><th>价格</th><th>押金</th><th>入住时间</th><th>退房时间</th><th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
+                    $i=0;
                     foreach ($reserves as $row) {
+                        $i++;
                         $guarantee = $row['guarantee_price'];
                         echo <<<TR
-                        <tr><td>{$row['id']}</td><td>{$roomNumsMap[$row['room_id']]['room_num']}</td><td>{$custsMap[$row['cust_id']]['name']}</td><td>{$custsMap[$row['cust_id']]['idcard']}</td><td>{$custsMap[$row['cust_id']]['mobile']}</td>
+                        <tr><td>{$i}</td><td>{$roomNumsMap[$row['room_id']]['room_num']}</td><td>{$custsMap[$row['cust_id']]['name']}</td><td>{$custsMap[$row['cust_id']]['idcard']}</td><td>{$custsMap[$row['cust_id']]['mobile']}</td>
                         <td>{$typesMap[$roomNumsMap[$row['room_id']]['room_type']]}</td><td>{$row['room_price']}</td><td>{$guarantee}</td><td>{$row['check_in_time']}</td>
                         <td>{$row['check_out_time']}</td>
                         <td>

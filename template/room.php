@@ -25,21 +25,23 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                 <table class="am-table am-table-bd am-table-striped admin-content-table">
                     <thead>
                     <tr>
-                        <th>ID</th><th>房间号</th><th>房间类型</th><th>房间电话</th><th>房间状态</th><th>管理</th>
+                        <th>序号</th><th>房间号</th><th>房间类型</th><th>房间电话</th><th>房间状态</th><th>管理</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
+                    $i=0;
                     foreach ($rooms as $row) {
+                        $i++;
                         $state = $row['state']==1?"空闲":"已用";
                         echo <<<TR
-                        <tr><td>{$row['id']}</td><td>{$row['room_num']}</td><td>{$typesMap[$row['room_type']]}</td><td>{$row['phone']}</td><td>{$state}</td>
+                        <tr><td>{$i}</td><td>{$row['room_num']}</td><td>{$typesMap[$row['room_type']]}</td><td>{$row['phone']}</td><td>{$state}</td>
                         <td>
                             <div class="am-dropdown" data-am-dropdown>
                                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
                                 <ul class="am-dropdown-content">
                                     <li><a href="#" onclick="edit('{$row['room_num']}','{$row['room_type']}','{$row['phone']}','{$row['state']}','{$row['id']}')">1. 编辑</a></li>
-                                    <li><a href="room.php?Action=Del&id={$row['id']}">2. 删除</a></li>
+                                    <li><a href="#" onclick=delOption('room.php','{$row['id']}')>2. 删除</a></li>
                                 </ul>
                             </div>
                         </td>

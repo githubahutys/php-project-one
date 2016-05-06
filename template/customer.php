@@ -25,20 +25,22 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                 <table class="am-table am-table-bd am-table-striped admin-content-table">
                     <thead>
                     <tr>
-                        <th>ID</th><th>身份证</th><th>姓名</th><th>性别</th><th>手机号</th><th>管理</th>
+                        <th>序号</th><th>身份证</th><th>姓名</th><th>性别</th><th>手机号</th><th>管理</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
+                    $i=0;
                     foreach ($custs as $row) {
+                        $i++;
                         echo <<<TR
-                        <tr><td>{$row['id']}</td><td>{$row['idcard']}</td><td>{$row['name']}</td><td>{$row['gender']}</td><td>{$row['mobile']}</td>
+                        <tr><td>{$i}</td><td>{$row['idcard']}</td><td>{$row['name']}</td><td>{$row['gender']}</td><td>{$row['mobile']}</td>
                         <td>
                             <div class="am-dropdown" data-am-dropdown>
                                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
                                 <ul class="am-dropdown-content">
                                     <li><a href="#" onclick="edit('{$row['name']}','{$row['gender']}','{$row['mobile']}','{$row['idcard']}','{$row['id']}')">1. 编辑</a></li>
-                                    <li><a href="customer.php?Action=Del&id={$row['id']}">2. 删除</a></li>
+                                    <li><a href="#" onclick=delOption('customer.php','{$row['id']}')>2. 删除</a></li>
                                 </ul>
                             </div>
                         </td>

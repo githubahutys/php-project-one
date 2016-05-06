@@ -89,6 +89,19 @@ ADMIN;
     <!-- content end -->
 
 </div>
+<!--删除提示modal-->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="delete-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">删除分类</div>
+        <div class="am-modal-bd">
+            确定要删除这条记录吗？操作不可恢复！
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
 <script>
     var message = "<?php
         if(isset($_SESSION['message'])){
@@ -98,6 +111,19 @@ ADMIN;
         ?>";
     if(message!=null&&message.length>0){
         alert(message);
+    }
+
+    function delOption(page,id){
+        $('#delete-confirm').modal({
+            relatedTarget: this,
+            onConfirm: function(options) {
+                var url = page+"?Action=Del&id="+id;
+                window.location.href = url;
+            },
+            // closeOnConfirm: false,
+            onCancel: function() {
+            }
+        });
     }
 </script>
 <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
