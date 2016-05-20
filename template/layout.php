@@ -69,6 +69,8 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                                     <li><a href="room.php"><span class="am-icon-file-o"></span> 客房管理</a></li>
                                     <li><a href="type.php"><span class="am-icon-file-o"></span> 客房类型</a></li>
                                     <li><a href="staff.php"><span class="am-icon-file-text"></span> 员工管理</a></li>
+                                    <li><a href="reportroom.php"><span class="am-icon-file-text"></span> 客房报表</a></li>
+                                    <li><a href="reportcust.php"><span class="am-icon-file-text"></span> 客户报表</a></li>
                                 </ul>
                             </li>
 ADMIN;

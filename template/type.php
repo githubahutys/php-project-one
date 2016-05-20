@@ -14,7 +14,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
             <div class="am-u-sm-12 am-u-md-6">
                 <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                        <button type="button" class="am-btn am-btn-default" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 500, height: 400}"><span class="am-icon-plus"></span> 新增类型</button>
+                        <button type="button" class="am-btn am-btn-default" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 500, height: 500}"><span class="am-icon-plus"></span> 新增类型</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                             <div class="am-dropdown" data-am-dropdown>
                                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
                                 <ul class="am-dropdown-content">
-                                    <li><a href="#" onclick="edit('{$row['room_type']}','{$row['price']}','{$row['quantity']}','{$row['remain']}','{$row['id']}')">1. 编辑</a></li>
+                                    <li><a href="#" onclick="edit('{$row['room_type']}','{$row['price']}','{$row['quantity']}','{$row['remain']}','{$row['id']}','{$row['description']}')">1. 编辑</a></li>
                                     <li><a href="#" onclick=delOption('type.php','{$row['id']}')>2. 删除</a></li>
                                 </ul>
                             </div>
@@ -67,7 +67,7 @@ TR;
                 <!--modal body-->
                 <div class="am-g am-center">
                     <div>
-                        <form class="am-form am-form-horizontal am-center" action="type.php" method="post">
+                        <form class="am-form am-form-horizontal am-center" enctype="multipart/form-data" baction="type.php" method="post">
                             <div class="am-form-group">
                                 <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">类型:</label>
                                 <div class="am-u-sm-8" style="float: left">
@@ -83,13 +83,26 @@ TR;
                             <div class="am-form-group">
                                 <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">总数:</label>
                                 <div class="am-u-sm-8" style="float: left">
-                                    <input type="text" name="quantity" id="quantity" placeholder="房间总数">
+                                    <input type="text" name="quantity" id="quantity" placeholder="房间总数" value="0" readonly>
                                 </div>
                             </div>
+
                             <div class="am-form-group">
                                 <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">余量:</label>
                                 <div class="am-u-sm-8" style="float: left">
-                                    <input type="text" name="remain" id="remain" placeholder="房间余量">
+                                    <input type="text" name="remain" id="remain" placeholder="房间余量" value="0" readonly>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">描述:</label>
+                                <div class="am-u-sm-8" style="float: left">
+                                    <input type="text" name="desc" id="desc" placeholder="房型描述">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">图片:</label>
+                                <div class="am-u-sm-8" style="float: left">
+                                    <input type="file" name="pic" id="pic" >
                                 </div>
                             </div>
                             <div class="am-form-group">
@@ -116,7 +129,7 @@ TR;
 <!-- content end -->
 <script>
 
-    function edit(room_type,price,quantity,remain,tid){
+    function edit(room_type,price,quantity,remain,tid,desc){
         var $modal = $('#doc-modal-1');
         var $room_type = $('#room_type');
         var $price = $('#price');
@@ -124,7 +137,9 @@ TR;
         var $remain = $('#remain');
         var $Action = $('#Action');
         var $tid = $('#tid');
+        var $desc = $('#desc');
 
+        $desc.val(desc);
         $price.val(price);
         $room_type.val(room_type);
         $quantity.val(quantity);

@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;
@@ -34,6 +34,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             try{
                 $result = $mysql->queryNoResult('INSERT INTO t_room(`room_num`,`room_type`,`phone`,`state`,`is_delete`) VALUES (?, ?,?,?,0)', $roomNum,$roomType,
                     $phone,$state);
+                $result = $result&&$mysql->queryNoResult('UPDATE t_room_type SET quantity = quantity+1 , remain= remain+1 WHERE id=?',
+                        $roomType);
             } catch (MySQLiQueryException $ex) {
                 echo "Something went wrong: ".$ex->getMessage();
             }
@@ -81,6 +83,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['Action'])) {
         case 'Del':
             $id = $_GET['id'];
             $result = $mysql->queryNoResult('UPDATE t_room SET is_delete = 1 WHERE id=?',$id);
+            $result = $result&&$mysql->queryNoResult('UPDATE t_room_type SET quantity = quantity-1 , remain= remain-1 WHERE id=(SELECT room_type FROM t_room WHERE id=?)',
+                    $id);
             if($result){
                 $_SESSION['message'] = "删除客房操作成功!";
             }else{
@@ -94,7 +98,7 @@ $rooms = $mysql->queryAllRows('SELECT * FROM t_room WHERE is_delete = 0 ORDER BY
 $types = $mysql->queryAllRows('SELECT * FROM t_room_type ORDER BY `id` ASC');
 $typesMap = array();
 foreach($types as $row){
-    $typesMap[$row['id']] = $row['room_type'];
+    $typesMap[$row['id']] = $row;
 }
 
 define('InternalAccess', true);

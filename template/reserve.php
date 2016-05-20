@@ -162,16 +162,6 @@ TR;
     </footer>
 </div>
 <!-- content end -->
-<script>
-    var prices = <?php echo json_encode($roomsMap);?>;
-    $(function(){
-        var $selected = $('#roomSelect');
-        $selected.on('change', function() {
-            var roomId = $(this).val();
-            $('#room_price').val(prices[roomId]);
-        });
-    });
-</script>
 
 <script>
     var prices = <?php echo json_encode($roomsMap);?>;

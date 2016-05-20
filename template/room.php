@@ -32,10 +32,11 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                     <?php
                     $i=0;
                     foreach ($rooms as $row) {
+                        if($typesMap[$row['room_type']]['is_delete']==1){continue;}
                         $i++;
                         $state = $row['state']==1?"空闲":"已用";
                         echo <<<TR
-                        <tr><td>{$i}</td><td>{$row['room_num']}</td><td>{$typesMap[$row['room_type']]}</td><td>{$row['phone']}</td><td>{$state}</td>
+                        <tr><td>{$i}</td><td>{$row['room_num']}</td><td>{$typesMap[$row['room_type']]['room_type']}</td><td>{$row['phone']}</td><td>{$state}</td>
                         <td>
                             <div class="am-dropdown" data-am-dropdown>
                                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>

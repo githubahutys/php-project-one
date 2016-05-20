@@ -14,8 +14,29 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
             <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>历史退房<br/><?php echo $checkouts;?>间</a></li>
             <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>注册客户<br/><?php echo $peoples;?>人</a></li>
         </ul>
-
-
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <table class="am-table am-table-bd am-table-striped admin-content-table">
+                    <thead>
+                    <tr>
+                        <th>序号</th><th>房型</th><th>总量</th><th>余量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $i=0;
+                    foreach($types as $row){
+                        $i++;
+                        echo <<<TR
+                        <tr><td>{$i}</td><td>{$row['room_type']}</td><td><span class="am-badge am-badge-success">{$row['quantity']}</span></td><td><span class="am-badge am-badge-danger">{$row['remain']}</span></td>
+                        </tr>
+TR;
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <footer class="admin-content-footer">

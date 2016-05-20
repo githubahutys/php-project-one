@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;

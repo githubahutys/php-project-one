@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;
@@ -54,7 +54,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             try{
                 $result = $mysql->queryNoResult('INSERT INTO t_reserve (`admin_id`,`cust_id`,`room_id`,`check_in_time`,`guarantee_price`,`room_price`,`check_out_time`,`check_in`) VALUES (?,?,?,?,?,?,?,?)',
                         $adminId,$custId,$roomId,$checkInTime,$guatanteePrice,$roomPrice,$checkOutTime,0);
-
+                $result = $result&&$mysql->queryNoResult('UPDATE t_room_type SET remain= remain-1 WHERE id=(SELECT room_type FROM t_room WHERE id=?)',
+                        $roomId);
             } catch (MySQLiQueryException $ex) {
                 echo "Something went wrong: ".$ex->getMessage();
             }
@@ -72,7 +73,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['Action'])) {
     switch($_GET['Action']) {
         case 'Del':
             $id = $_GET['id'];
-            $result = $mysql->queryNoResult('DELETE FROM t_reserve WHERE id=?',$id);
+            $result = $mysql->queryNoResult('UPDATE t_room_type SET remain= remain+1 WHERE id=(SELECT room_type FROM t_room WHERE id=(SELECT room_id FROM t_reserve WHERE id=?))',
+                    $id);
+            $result = $result&&$mysql->queryNoResult('DELETE FROM t_reserve WHERE id=?',$id);
+
             if($result){
                 $_SESSION['message'] = "取消预订操作成功!";
             }else{

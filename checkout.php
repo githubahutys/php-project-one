@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;
@@ -30,7 +30,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
                 $result = $mysql->queryNoResult('UPDATE t_room SET state =1 WHERE id = ? ',$line['id']);
 
                 $result = $result && $mysql->queryNoResult('UPDATE t_check_in SET check_out=1 WHERE room_id= ? ',$line['id']);
-
+                $result = $result&&$mysql->queryNoResult('UPDATE t_room_type SET  remain= remain+1 WHERE id=(SELECT room_type FROM t_room WHERE id=?)',
+                        $line['id']);
             } catch (MySQLiQueryException $ex) {
                 echo "Something went wrong: ".$ex->getMessage();
             }

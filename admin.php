@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;
@@ -21,6 +21,8 @@ $peoples = $mysql->querySingleField('SELECT count(`id`) FROM t_customer');
 $reserves = $mysql->querySingleField('SELECT count(`id`) FROM t_reserve');
 $checkins = $mysql->querySingleField('SELECT count(`id`) FROM t_check_in');
 $checkouts = $mysql->querySingleField('SELECT count(`id`) FROM t_check_in WHERE check_out = 1');
+$types = $mysql->queryAllRows('SELECT * FROM t_room_type WHERE is_delete = 0 ORDER BY `id` ASC');
+
 define('InternalAccess', true);
 $contentFile = 'template/admin.php';
 include('template/layout.php');

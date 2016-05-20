@@ -18,6 +18,14 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                     </div>
                 </div>
             </div>
+            <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-input-group am-input-group-sm">
+                    <input type="text" class="am-form-field" id="search_txt" placeholder="姓名/证件号" value="<?php if(isset($content))echo $content;?>">
+          <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="button" onclick="doSearch();">搜索</button>
+          </span>
+                </div>
+            </div>
         </div>
 
         <div class="am-g">
@@ -170,4 +178,13 @@ TR;
             $('#room_price').val(days*prices[roomId]);
         });
     });
+
+    function doSearch(){
+        var content = $.trim($("#search_txt").val());
+        if(content==""){
+            return;
+        }
+        var url = "checkin.php?search_txt="+content;
+        window.location.href = url;
+    }
 </script>

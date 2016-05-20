@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;
@@ -19,6 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             $gender = $_POST['gender'];
             $mobile = $_POST['mobile'];
             $idcard = $_POST['idcard'];
+            $permission = $_POST['permission'];
             if(strlen($name)<=0||strlen($idcard)<=0){
                 $_SESSION['message'] = "姓名和证件不能为空!";
                 header('Location: customer.php');
@@ -31,8 +32,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             }
 
             try{
-                $result = $mysql->queryNoResult('INSERT INTO t_customer(`name`,`gender`,`idcard`,`mobile`,`is_delete`) VALUES (?, ?,?,?,0)',
-                    $name,$gender,$idcard,$mobile);
+                $result = $mysql->queryNoResult('INSERT INTO t_customer(`name`,`gender`,`idcard`,`mobile`,`is_delete`,`permission`) VALUES (?, ?,?,?,0,?)',
+                    $name,$gender,$idcard,$mobile,$permission);
             } catch (MySQLiQueryException $ex) {
                 echo "Something went wrong: ".$ex->getMessage();
             }
@@ -49,6 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             $gender = $_POST['gender'];
             $mobile = $_POST['mobile'];
             $idcard = $_POST['idcard'];
+            $permission = $_POST['permission'];
             if(strlen($name)<=0||strlen($idcard)<=0){
                 $_SESSION['message'] = "姓名和证件不能为空!";
                 header('Location: customer.php');
@@ -60,8 +62,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
                 break;
             }
             try{
-                $result = $mysql->queryNoResult('UPDATE t_customer SET name = ? , gender = ? , idcard = ? , mobile=? WHERE id=?',
-                    $name,$gender,$idcard,$mobile,$id);
+                $result = $mysql->queryNoResult('UPDATE t_customer SET name = ? , gender = ? , idcard = ? , mobile=? , permission=? WHERE id=?',
+                    $name,$gender,$idcard,$mobile,$permission,$id);
             } catch (MySQLiQueryException $ex) {
                 echo "Something went wrong: ".$ex->getMessage();
             }

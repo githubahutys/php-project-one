@@ -7,14 +7,13 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">酒店管理</strong> / <small>客户信息</small></div>
         </div>
-
         <hr>
 
         <div class="am-g">
             <div class="am-u-sm-12 am-u-md-6">
                 <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                        <button type="button" class="am-btn am-btn-default" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 500, height: 400}"><span class="am-icon-plus"></span> 新增客户</button>
+                        <button type="button" class="am-btn am-btn-default" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 500, height: 500}"><span class="am-icon-plus"></span> 新增客户</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +38,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                             <div class="am-dropdown" data-am-dropdown>
                                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
                                 <ul class="am-dropdown-content">
-                                    <li><a href="#" onclick="edit('{$row['name']}','{$row['gender']}','{$row['mobile']}','{$row['idcard']}','{$row['id']}')">1. 编辑</a></li>
+                                    <li><a href="#" onclick="edit('{$row['name']}','{$row['gender']}','{$row['mobile']}','{$row['idcard']}','{$row['id']}','{$row['permission']}')">1. 编辑</a></li>
                                     <li><a href="#" onclick=delOption('customer.php','{$row['id']}')>2. 删除</a></li>
                                 </ul>
                             </div>
@@ -81,6 +80,15 @@ TR;
                                 </div>
                             </div>
                             <div class="am-form-group">
+                                <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">类型:</label>
+                                <div class="am-u-sm-8" style="float: left">
+                                    <select name="permission" id="permission">
+                                        <option value="0">普通用户</option>
+                                        <option value="1">VIP用户</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
                                 <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">手机:</label>
                                 <div class="am-u-sm-8" style="float: left">
                                     <input type="text" name="mobile" id="mobile" placeholder="手机号码">
@@ -97,7 +105,6 @@ TR;
                                     <input type="submit" name="sub" class="am-btn am-btn-default" value="确定"/>
                                     <input type="hidden" name="Action" id="Action" value="Add">
                                     <input type="hidden" name="cid" id="cid" value="">
-
                                 </div>
                             </div>
                         </form>
@@ -116,18 +123,18 @@ TR;
 </div>
 <!-- content end -->
 <script>
-
-    function edit(name,gender,mobile,idcard,cid){
+    function edit(name,gender,mobile,idcard,cid,permission){
         var $modal = $('#doc-modal-1');
         var $name = $('#name');
         var $gender = $('#gender');
+        var $permission = $('#permission');
         var $mobile = $('#mobile');
         var $idcard = $('#idcard');
         var $Action = $('#Action');
         var $cid = $('#cid');
-
         $name.val(name);
         $gender.val(gender);
+        $permission.val(permission);
         $mobile.val(mobile);
         $idcard.val(idcard);
         $Action.val('Edit');

@@ -4,7 +4,7 @@ require_once('common/EasyMySQLi.inc.php');
 
 if(!isset($_SESSION['user'])){
     $_SESSION['message'] = "请先登录!";
-    header('Location: index.php');
+    header('Location: login.php');
     exit;
 }
 $isAdmin = false;
@@ -56,7 +56,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
 
                 $result = $result && $mysql->queryNoResult('INSERT INTO t_check_in(`admin_id`,`cust_id`,`room_id`,`check_in_time`,`guarantee_price`,`room_price`,`check_out`,`check_out_time`) VALUES (?,?,?,?,?,?,0,?)',
                     $adminId,$custId,$roomId,$checkInTime,$guatanteePrice,$roomPrice,$checkOutTime);
-
+                $result = $result&&$mysql->queryNoResult('UPDATE t_room_type SET remain= remain-1 WHERE id=(SELECT room_type FROM t_room WHERE id=?)',
+                        $roomId);
             } catch (MySQLiQueryException $ex) {
                 echo "Something went wrong: ".$ex->getMessage();
             }
@@ -69,8 +70,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sub'])){
             break;
     }
 }
+if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search_txt'])){
+    $content = $_GET['search_txt'];
+    $checkins = @$mysql->queryAllRows('SELECT * FROM t_check_in WHERE check_out= 0 AND cust_id IN (SELECT id FROM t_customer WHERE name=? OR idcard=?) ORDER BY id ASC',$content,$content);
+}
+else{
+    $checkins = $mysql->queryAllRows('SELECT * FROM t_check_in WHERE check_out= 0 ORDER BY `id` ASC');
+}
 //读取数据，显示界面
-$checkins = $mysql->queryAllRows('SELECT * FROM t_check_in WHERE check_out= 0 ORDER BY `id` ASC');
+
 $custs = $mysql->queryAllRows('SELECT * FROM t_customer ORDER BY `id` ASC');
 $rooms = $mysql->queryAllRows('SELECT * FROM t_room ORDER BY `id` ASC');
 $types = $mysql->queryAllRows('SELECT * FROM t_room_type ORDER BY `id` ASC');

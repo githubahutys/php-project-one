@@ -7,8 +7,9 @@ if(isset($_GET['out']))
 {
     unset($_SESSION['user']);
     unset($_SESSION['pass']);
+    session_destroy();
     //重定向
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
 }
 //登录
@@ -20,16 +21,27 @@ if(isset($_POST['sub']))
     $pass = $_POST['pass'];
     if(strlen($user)<=0||strlen($pass)<=0){
         $_SESSION['message'] = "用户名、密码不能为空！";
-        header('Location: index.php');
+        header('Location: login.php');
         exit();
     }
    //查询数据库中是否匹配
     $line = @$mysql->querySingleRow('SELECT * FROM t_admin WHERE user = ? AND password= ?',$user,SHA1($pass));
     if($line==NULL){
-        //账号密码不匹配
-        $_SESSION['message'] = "账号或者密码不正确！";
-        header('Location: index.php');
-        exit();
+        $line = @$mysql->querySingleRow('SELECT * FROM t_customer WHERE mobile = ? AND pass= ?',$user,SHA1($pass));
+        if($line==NULL) {
+            //账号密码不匹配
+            $_SESSION['message'] = "账号或者密码不正确！";
+            header('Location: login.php');
+            exit();
+        }else{
+            //登录成功保存session
+            $_SESSION['cust']=$_POST['user'];
+            $_SESSION['cust_id']=$line['id'];
+            $_SESSION['pass']=$_POST['pass'];
+            $_SESSION['permission']=$line['permission'];
+            header('Location: index.php');
+            exit();
+        }
     }
     //登录成功保存session
     $_SESSION['user']=$_POST['user'];
@@ -41,7 +53,7 @@ if(isset($_POST['sub']))
 }
 else{
     $_SESSION['message'] = "请先登录！";
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
 }
 
