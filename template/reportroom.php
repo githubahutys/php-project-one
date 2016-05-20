@@ -45,7 +45,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 
         <div class="am-g">
             <div class="am-u-sm-12">
-                <table class="am-table am-table-bd am-table-striped admin-content-table">
+                <table id="example" class="display" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>序号</th>
@@ -58,16 +58,24 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                     <tbody>
                     <?php
                     $i = 0;
+                    $money=0;
+                    $times=0;
                     foreach ($reports as $row) {
                         $i++;
+                        $money+=$row['money'];
+                        $times+=$row['times'];
                         echo <<<TR
                         <tr><td>{$i}</td><td>{$row['room_type']}</td><td>{$row['quantity']}</td><td>{$row['times']}</td><td>{$row['money']}</td>
                         </tr>
 TR;
                     }
                     ?>
+                    <tr><td>合计金额：</td><td><?php echo $money;?></td><td>累计入住：</td><td><?php echo $times;?></td><td></td></tr>
+
                     </tbody>
                 </table>
+                <hr>
+                <div>累计入住：<?php echo $times;?>次&nbsp;&nbsp;&nbsp;合计金额：<?php echo $money;?>元</div>
             </div>
         </div>
     </div>

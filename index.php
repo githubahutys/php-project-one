@@ -1,5 +1,21 @@
 <?php
 session_start();
+
+
+
+/**
+ * 导出数据为excel表格
+ *@param $data    一个二维数组,结构如同从数据库查出来的数组
+ *@param $title   excel的第一行标题,一个数组,如果为空则没有标题
+ *@param $filename 下载的文件名
+ *@examlpe
+$stu = M ('User');
+$arr = $stu -> select();
+exportexcel($arr,array('id','账户','密码','昵称'),'文件名!');
+ */
+
+
+
 require_once('common/EasyMySQLi.inc.php');
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['is_ajax'])){
     $rooms = $mysql->queryAllRows('SELECT * FROM t_room WHERE room_type=? AND is_delete=0 AND state=1 ORDER BY `id` ASC',$_POST['room_type']);

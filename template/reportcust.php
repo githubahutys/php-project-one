@@ -1,6 +1,9 @@
 <?php
 if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 ?>
+
+
+
 <!-- content start -->
 <div class="admin-content">
     <div class="admin-content-body">
@@ -48,7 +51,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 
         <div class="am-g">
             <div class="am-u-sm-12">
-                <table class="am-table am-table-bd am-table-striped admin-content-table">
+                <table id="example" class="display" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>序号</th>
@@ -62,16 +65,20 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
                     <tbody>
                     <?php
                     $i = 0;
+                    $money=0;
                     foreach ($reports as $row) {
                         $i++;
+                        $money+=$row['money'];
                         echo <<<TR
-                        <tr><td>{$i}</td><td>{$row['name']}</td><td>{$row['gender']}</td><td>{$row['idcard']}</td><td>{$row['mobile']}</td><td>{$row['money']}</td>
+                        <tr><td>{$i}</td><td>{$row['name']}</td><td>{$row['gender']}</td><td>{$row['idcard']}&nbsp;</td><td>{$row['mobile']}</td><td>{$row['money']}</td>
                         </tr>
 TR;
                     }
                     ?>
+                    <tr><td>合计金额：</td><td><?php echo $money;?></td><td></td><td></td><td></td><td></td></tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
@@ -86,6 +93,7 @@ TR;
 </div>
 <!-- content end -->
 <script>
+
     function doSearch() {
         var start_time = $.trim($("#start_time").val());
         var end_time = $.trim($("#end_time").val());

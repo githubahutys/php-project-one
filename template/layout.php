@@ -15,9 +15,29 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
-    <script src="assets/js/jquery.min.js"></script>
+    <!--<script src="assets/js/jquery.min.js"></script>-->
 
+    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="css/dataTables.tableTools.css">
+    <style type="text/css" class="init">
 
+    </style>
+    <script type="text/javascript" language="javascript" src="js/jquery.js" chartset="utf8" ></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js" chartset="utf8" ></script>
+    <script type="text/javascript" language="javascript" src="js/dataTables.tableTools.js" chartset="utf8" ></script>
+    <script type="text/javascript" language="javascript" class="init"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "js/copy_csv_xls_pdf.swf"
+                }
+            } );
+        } );
+
+    </script>
 </head>
 <body>
 
@@ -137,7 +157,7 @@ ADMIN;
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
+<!--<script src="assets/js/jquery.min.js"></script>-->
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
